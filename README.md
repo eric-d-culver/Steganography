@@ -24,4 +24,4 @@ Takes the bytes in input.data and "deals" them into num files (named input0.data
 Takes the bytes of the input files and shuffles them into one file (named input.data, i.e. simply remove the number from the first filename) by taking the first byte of the first file, then the first byte of the second file, and so on, then the second byte of each file, and then the third byte, and so on.
 
 ## Acknowledgements
-The code in ensteg.c and desteg.c is based off of code by (Joshua Shagam)[http://www.cs.nmsu.edu/~joshagam/css/]
+The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam](http://www.cs.nmsu.edu/~joshagam/css/)
