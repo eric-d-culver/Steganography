@@ -1,7 +1,7 @@
 #ignore scripts
 *.sh
 
-#ignore inputs/outputs
+#ignore test inputs/outputs
 input.txt
 output.txt
 input.ppm
