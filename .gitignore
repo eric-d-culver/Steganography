@@ -1,0 +1,8 @@
+#ignore scripts
+*.sh
+
+#ignore inputs/outputs
+input.txt
+output.txt
+input.ppm
+
