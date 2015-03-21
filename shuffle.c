@@ -9,6 +9,7 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
+	/* get the right filename */
 	char *basename;
 	char extension[5];
 	basename=(char *)malloc(sizeof(char)*strlen(argv[1]));
@@ -27,6 +28,7 @@ int main(int argc, char *argv[]) {
 
 	free(basename);
 
+	/* "shuffle" the bytes together */
 	int i;
 	int piles=argc-1;
 	for (i=0; i<piles; ++i) {
@@ -46,7 +48,7 @@ int main(int argc, char *argv[]) {
 	}
 	printf("done\n");
 
-
+	/* clean up */
 	fclose(fp);
 	for (i=0; i<piles; ++i) {
 		fclose(fparray[i]);

@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	fscanf(fp1, "%d%d%d\n", &w, &h, &max);
 	fprintf(fout, "%s\n%d %d\n%d\n", copybuf, w, h, max);
 
-	// ensteg the data
+	/* ensteg the data */
 	printf ("enstegging...\n");
 	while (fread(&buf, sizeof(char), 1, fp2))
 	{
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 			}
 	}
 
-	// copy the remainder of the file (random-pad everything though)
+	/* copy the remainder of the file (random-pad everything though) */
 	printf ("copying rest/adding garbage...\n");
 	srand(time(0)+hash(argv[2]));
 	while ((max = fread(copybuf, sizeof(char), 1024, fp1)))
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
 	printf ("done\n");
 
-	// clean up, such as it is
+	/* clean up, such as it is */
 	fclose (fp1);
 	fclose (fp2);
 	fclose (fout);

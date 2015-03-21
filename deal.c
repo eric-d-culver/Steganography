@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
 	FILE * fp=fopen(argv[1], "r");
 	FILE ** fparray= (FILE **)malloc(sizeof(FILE *)*piles);
 
+	/* all this just to get the right filenames */
 	char extension[5];
 	char *basename;
 
@@ -36,6 +37,7 @@ int main(int argc, char *argv[]) {
 	free(filename);
 	free(num);
 
+	/* now "deal" out the bytes */
 	printf("dealing...\n");
 	char *bytes;
 	bytes=(char *)malloc(sizeof(char)*piles);
@@ -47,6 +49,7 @@ int main(int argc, char *argv[]) {
 	}
 	printf("done\n");
 
+	/* clean up */
 	free(bytes);
 	fclose(fp);
 	for (i=0; i<piles; ++i) {

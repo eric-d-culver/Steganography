@@ -18,7 +18,7 @@ int main (int argc, char *argv[]) {
 	fgets(copybuf, 1023, fp1);
 	fgets(copybuf, 1023, fp1);
 
-	//desteg data
+	/* desteg data */
 	printf("destegging...\n");
 	while (fread(copybuf, sizeof(char), 8, fp1)) {
 		int i;
