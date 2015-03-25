@@ -10,6 +10,7 @@
 */
 
 #include <stdio.h>
+#include <limits.h>
 
 unsigned long hash(char *str);
 
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
 	{
 		int i;
 
-		for (i = 0; i < 8; i++)
+		for (i = 0; i < CHAR_BIT; i++)
 			{
 			char b = fgetc(fp1);
 			char s = (b&0xFE) | ((buf>>i)&1);
@@ -61,6 +62,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+/* this is just to make the random garbage a little more random */
 unsigned long hash (char *str) {
 	unsigned long hash= 5381;
 	int c;

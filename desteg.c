@@ -8,6 +8,7 @@
 */
 
 #include <stdio.h>
+#include <limits.h>
 
 int main (int argc, char *argv[]) {
 	FILE *fp1 = fopen(argv[1], "r");
@@ -20,10 +21,10 @@ int main (int argc, char *argv[]) {
 
 	/* desteg data */
 	printf("destegging...\n");
-	while (fread(copybuf, sizeof(char), 8, fp1)) {
+	while (fread(copybuf, sizeof(char), CHAR_BIT, fp1)) {
 		int i;
 		char s=0;
-		for (i=0; i<8; ++i) {
+		for (i=0; i<CHAR_BIT; ++i) {
 			s|=((copybuf[i]&1)<<i);
 		}
 		fputc(s, fp2);
