@@ -10,6 +10,11 @@
 #include <limits.h>
 #include <string.h>
 
+typedef struct _node_ {
+	int value;
+	struct _node_ *left, *right;
+} node;
+
 int main(int argc, char* argv[]) {
 	FILE *fin=fopen(argv[1], "r");
 	int n=atoi(argv[2]);
