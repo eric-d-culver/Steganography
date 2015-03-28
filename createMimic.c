@@ -15,6 +15,11 @@ const char MAGIC[MAGICLEN]={ 'M', 'i', 'M', 'i', 'C' };
 enum {ENDLEN=3};
 const char END[ENDLEN]={ 'E', 'N', 'D' };
 
+typedef struct _where_ {
+	long filePosition;
+	int sizeOfEntry;
+} where;
+
 typedef struct _node_ {
 	int value;
 	struct _node_ *left, *right;
@@ -33,6 +38,7 @@ int main(int argc, char* argv[]) {
 
 	int freqs[1<<CHAR_BIT];
 	int i, j;
+	where wheres[1<<CHAR_BIT];
 
 	/* write magic to mimic file */
 	fwrite(MAGIC, sizeof(char), MAGICLEN, fout);
@@ -67,10 +73,16 @@ int main(int argc, char* argv[]) {
 		/* create canonical Huffman code */
 
 		/* write to mimic file */
+		wheres[j].filePosition=ftell(fout);
+		// fwrite(huffCode, sizeof(char), numchars, fout)
+		wheres[j].sizeOfEntry=ftell(fout)-wheres[j].filePosition;
 
 		/* increment ngram */
 		increment(ngram, n-1);
 	}
+
+	/* writes wheres to mimic file */
+	fwrite(wheres, sizeof(index), 1<<CHAR_BIT, fout);
 
 	/* write end to mimic file */
 	fwrite(END, sizeof(char), ENDLEN, fout);
