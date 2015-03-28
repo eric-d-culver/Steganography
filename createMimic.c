@@ -10,7 +10,10 @@
 #include <limits.h>
 #include <string.h>
 
-const char MAGIC[5]={ 'M', 'i', 'M', 'i', 'C' };
+enum {MAGICLEN=5};
+const char MAGIC[MAGICLEN]={ 'M', 'i', 'M', 'i', 'C' };
+enum {ENDLEN=3};
+const char END[ENDLEN]={ 'E', 'N', 'D' };
 
 typedef struct _node_ {
 	int value;
@@ -32,7 +35,7 @@ int main(int argc, char* argv[]) {
 	int i, j;
 
 	/* write magic to mimic file */
-	fwrite(MAGIC, sizeof(char), 5, fout);
+	fwrite(MAGIC, sizeof(char), MAGICLEN, fout);
 
 	/* write n to mimic file */
 	fwrite(&n, sizeof(char), 1, fout);
@@ -68,6 +71,9 @@ int main(int argc, char* argv[]) {
 		/* increment ngram */
 		increment(ngram, n-1);
 	}
+
+	/* write end to mimic file */
+	fwrite(END, sizeof(char), ENDLEN, fout);
 
 	/* clean up */
 	free(window);
