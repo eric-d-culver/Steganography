@@ -6,3 +6,12 @@ input.txt
 output.txt
 input.ppm
 
+#ignore gitignore
+.gitignore
+
+#ignore executables
+ensteg
+desteg
+deal
+shuffle
+createMimic
