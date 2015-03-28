@@ -52,5 +52,9 @@ int main(int argc, char* argv[]) {
 		/* increment ngram */
 	}
 
+	/* clean up */
+	free(window);
+	free(ngram);
+
 	return 0;
 }
