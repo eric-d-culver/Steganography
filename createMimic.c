@@ -10,10 +10,14 @@
 #include <limits.h>
 #include <string.h>
 
+const char MAGIC[5]={ 'M', 'i', 'M', 'i', 'C' };
+
 typedef struct _node_ {
 	int value;
 	struct _node_ *left, *right;
 } node;
+
+void increment(char* array, int size);
 
 int main(int argc, char* argv[]) {
 	FILE *fin=fopen(argv[1], "r");
@@ -27,6 +31,13 @@ int main(int argc, char* argv[]) {
 	int freqs[1<<CHAR_BIT];
 	int i, j;
 
+	/* write magic to mimic file */
+	fwrite(MAGIC, sizeof(char), 5, fout);
+
+	/* write n to mimic file */
+	fwrite(&n, sizeof(char), 1, fout);
+
+	/* initializing ngram */
 	for (i=0; i<(n-1); ++i) {
 		ngram[i]=0;
 	}
@@ -55,6 +66,7 @@ int main(int argc, char* argv[]) {
 		/* write to mimic file */
 
 		/* increment ngram */
+		increment(ngram, n-1);
 	}
 
 	/* clean up */
@@ -62,4 +74,16 @@ int main(int argc, char* argv[]) {
 	free(ngram);
 
 	return 0;
+}
+
+void increment(char* array, int size) {
+	int i;
+	for (i=size-1; i>=0; --i) {
+		if (array[i]==255) array[i]==0;
+		else {
+			++array[i];
+			i=-1;
+		}
+	}
+	return;
 }
