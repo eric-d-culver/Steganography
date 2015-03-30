@@ -75,37 +75,45 @@ int main(int argc, char* argv[]) {
 		}
 
 		/* create canonical Huffman code */
-		node *array[1<<CHAR_BIT];
-		for (i=0; i<(1<<CHAR_BIT); ++i) {
+		node *array[1<<(CHAR_BIT+1)];
+		for (i=0; i<(1<<(CHAR_BIT+1)); ++i) {
 			array[i]=(node *) malloc(sizeof(node));
-			array[i]->value=freqs[i];
+			array[i]->value=(i<(1<<CHAR_BIT))?freqs[i]:0;
 			array[i]->left=NULL;
 			array[i]->right=NULL;
 		}
 
-		//find two smallest that aren't zero, combine them into one tree
-		//when there is only one tree, find depth of each node and put them in
-		//order from least deep to most deep. Write to file with num of each depth
-		unsigned int firstIndex, secondIndex, topIndex;
-		while (numNonZero(array, 1<<CHAR_BIT)>1) {
-			findTwoSmallest(array, 1<<CHAR_BIT, firstIndex, secondIndex);
-			node* oneUp=(node *)malloc(sizeof(node));
-			oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
+		unsigned int nextIndex, firstIndex, secondIndex, topIndex;
+		nextIndex=1<<CHAR_BIT;
+		while (numNonZero(array, 1<<(CHAR_BIT+1))>1) {
+			findTwoSmallest(array, 1<<(CHAR_BIT+1), firstIndex, secondIndex);
+			array[nextIndex]->value=array[firstIndex]->value + array[secondIndex]->value;
 
 			if (firstIndex<secondIndex) {
-				oneUp->left=array[firstIndex];
-				oneUp->right=array[secondIndex];
+				array[nextIndex]->left=array[firstIndex];
+				array[nextIndex]->right=array[secondIndex];
 			} else {
-				oneUp->left=array[secondIndex];
-				oneUp->right=array[firstIndex];
+				array[nextIndex]->left=array[secondIndex];
+				array[nextIndex]->right=array[firstIndex];
 			}
 
-			array[firstIndex]=oneUp;
+			array[firstIndex]->value=0;
 			array[secondIndex]->value=0;
-			topIndex=firstIndex;
+			topIndex=nextIndex++;
 		}
 
 		//now root of tree is at array[topIndex]
+
+		//find depth of each node and put them in order from least deep to most deep
+		char* huffCode;
+		huffCode=(char *)malloc(sizeof(char)*(1<<CHAR_BIT));
+
+
+		//free memory in array
+		for (i=0; i<(1<<(CHAR_BIT+1)); ++i) {
+			free(array[i]);
+		}
+		//Write to file with num of each depth
 
 		/* write to mimic file */
 		wheres[j].filePosition=ftell(fout);
