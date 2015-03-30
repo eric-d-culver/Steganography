@@ -22,6 +22,7 @@ typedef struct _where_ {
 
 typedef struct _node_ {
 	int value;
+	char letter;
 	struct _node_ *left, *right;
 } node;
 
@@ -79,6 +80,7 @@ int main(int argc, char* argv[]) {
 		for (i=0; i<(1<<CHAR_BIT); ++i) {
 			array[i]=(node *) malloc(sizeof(node));
 			array[i]->value=freqs[i];
+			array[i]->letter=i;
 			array[i]->left=NULL;
 			array[i]->right=NULL;
 		}
