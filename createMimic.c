@@ -86,21 +86,26 @@ int main(int argc, char* argv[]) {
 		//find two smallest that aren't zero, combine them into one tree
 		//when there is only one tree, find depth of each node and put them in
 		//order from least deep to most deep. Write to file with num of each depth
-		unsigned int firstIndex, secondIndex;
-		findTwoSmallest(array, 1<<CHAR_BIT, firstIndex, secondIndex);
-		node* oneUp=(node *)malloc(sizeof(node));
-		oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
+		unsigned int firstIndex, secondIndex, topIndex;
+		while (numNonZero(array, 1<<CHAR_BIT)>1) {
+			findTwoSmallest(array, 1<<CHAR_BIT, firstIndex, secondIndex);
+			node* oneUp=(node *)malloc(sizeof(node));
+			oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
 
-		if (firstIndex<secondIndex) {
-			oneUp->left=array[firstIndex];
-			oneUp->right=array[secondIndex];
-		} else {
-			oneUp->left=array[secondIndex];
-			oneUp->right=array[firstIndex];
+			if (firstIndex<secondIndex) {
+				oneUp->left=array[firstIndex];
+				oneUp->right=array[secondIndex];
+			} else {
+				oneUp->left=array[secondIndex];
+				oneUp->right=array[firstIndex];
+			}
+
+			array[firstIndex]=oneUp;
+			array[secondIndex]->value=0;
+			topIndex=firstIndex;
 		}
 
-		array[firstIndex]=oneUp;
-		array[secondIndex]->value=0;
+		//now root of tree is at array[topIndex]
 
 		/* write to mimic file */
 		wheres[j].filePosition=ftell(fout);
