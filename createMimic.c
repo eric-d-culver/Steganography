@@ -75,31 +75,31 @@ int main(int argc, char* argv[]) {
 		}
 
 		/* create canonical Huffman code */
-		node *array[1<<(CHAR_BIT+1)];
-		for (i=0; i<(1<<(CHAR_BIT+1)); ++i) {
+		node *array[1<<CHAR_BIT];
+		for (i=0; i<(1<<CHAR_BIT); ++i) {
 			array[i]=(node *) malloc(sizeof(node));
-			array[i]->value=(i<(1<<CHAR_BIT))?freqs[i]:0;
+			array[i]->value=freqs[i];
 			array[i]->left=NULL;
 			array[i]->right=NULL;
 		}
 
-		unsigned int nextIndex, firstIndex, secondIndex, topIndex;
-		nextIndex=1<<CHAR_BIT;
-		while (numNonZero(array, 1<<(CHAR_BIT+1))>1) {
-			findTwoSmallest(array, 1<<(CHAR_BIT+1), firstIndex, secondIndex);
-			array[nextIndex]->value=array[firstIndex]->value + array[secondIndex]->value;
+		unsigned int firstIndex, secondIndex, topIndex;
+		while (numNonZero(array, 1<<CHAR_BIT)>1) {
+			findTwoSmallest(array, 1<<CHAR_BIT, firstIndex, secondIndex);
+			node *oneUp = (node *)malloc(sizeof(node));
+			oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
 
 			if (firstIndex<secondIndex) {
-				array[nextIndex]->left=array[firstIndex];
-				array[nextIndex]->right=array[secondIndex];
+				oneUp->left=array[firstIndex];
+				oneUp->right=array[secondIndex];
 			} else {
-				array[nextIndex]->left=array[secondIndex];
-				array[nextIndex]->right=array[firstIndex];
+				oneUp->left=array[secondIndex];
+				oneUp->right=array[firstIndex];
 			}
 
-			array[firstIndex]->value=0;
+			array[firstIndex]=oneUp;
 			array[secondIndex]->value=0;
-			topIndex=nextIndex++;
+			topIndex=firstIndex;
 		}
 
 		//now root of tree is at array[topIndex]
