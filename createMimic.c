@@ -27,6 +27,10 @@ typedef struct _node_ {
 
 void increment(char* array, int size);
 
+void findTwoSmallest(node* array, int size, int& first, int& second);
+
+int numNonZero(node* array, int size);
+
 int main(int argc, char* argv[]) {
 	FILE *fin=fopen(argv[1], "r");
 	int n=atoi(argv[2]);
@@ -71,6 +75,32 @@ int main(int argc, char* argv[]) {
 		}
 
 		/* create canonical Huffman code */
+		node *array[1<<CHAR_BIT];
+		for (i=0; i<(1<<CHAR_BIT); ++i) {
+			array[i]=(node *) malloc(sizeof(node));
+			array[i]->value=freqs[i];
+			array[i]->left=NULL;
+			array[i]->right=NULL;
+		}
+
+		//find two smallest that aren't zero, combine them into one tree
+		//when there is only one tree, find depth of each node and put them in
+		//order from least deep to most deep. Write to file with num of each depth
+		unsigned int firstIndex, secondIndex;
+		findTwoSmallest(array, 1<<CHAR_BIT, firstIndex, secondIndex);
+		node* oneUp=(node *)malloc(sizeof(node));
+		oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
+
+		if (firstIndex<secondIndex) {
+			oneUp->left=array[firstIndex];
+			oneUp->right=array[secondIndex];
+		} else {
+			oneUp->left=array[secondIndex];
+			oneUp->right=array[firstIndex];
+		}
+
+		array[firstIndex]=oneUp;
+		array[secondIndex]->value=0;
 
 		/* write to mimic file */
 		wheres[j].filePosition=ftell(fout);
@@ -104,4 +134,25 @@ void increment(char* array, int size) {
 		}
 	}
 	return;
+}
+
+void findTwoSmallest(node* array, int size, int& first, int& second) {
+	first=second=0;
+	int i;
+	for (i=0; i<size; ++i) {
+		if (array[i]->value == 0) continue;
+		if (array[i]->value < array[second]->value) {
+			if (array[i]->value < array[first]->value) first=i;
+			else second=i;
+		}
+	}
+	return;
+}
+
+int numNonZero(node* array, int size) {
+	int i;
+	int num;
+	for (i=0; i<size; ++i)
+		if (array[i]->value!=0) ++num;
+	return num;
 }
