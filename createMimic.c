@@ -39,7 +39,7 @@ node * buildTree(node** array, int size);
 
 int isLeaf(node* np);
 
-void extractLettersAndFree(node* root, int depth, char* letters, char* depths);
+char * extractLettersAndFree(node* root, int depth, char* letters, char* depths);
 
 int main(int argc, char* argv[]) {
 	FILE *fin=fopen(argv[1], "r");
@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
 
 		/* traverse tree, picking up letters in order from least deep to most deep */
 		/* also free memory for tree, we don't need it anymore */
-		extractLettersAndFree(root, 0, place, depths);
+		place=extractLettersAndFree(root, 0, place, depths);
 
 		/* write to mimic file */
 		wheres[j].filePosition=ftell(fout);
@@ -195,15 +195,15 @@ int isLeaf(node* np) {
 	return 0;
 }
 
-void extractLettersAndFree(node* root, int depth, char* nextLetter, char* depths) {
+char * extractLettersAndFree(node* root, int depth, char* nextLetter, char* depths) {
 	if (isLeaf(root)) {
 		*(nextLetter++)=root->letter;
 		++depths[depth];
 		free(root);
-		return;
+		return nextLetter;
 	}
-	extractLettersAndFree(root->left, depth+1, nextLetter, depths);
-	extractLettersAndFree(root->right, depth+1, nextLetter, depths);
+	nextLetter=extractLettersAndFree(root->left, depth+1, nextLetter, depths);
+	nextLetter=extractLettersAndFree(root->right, depth+1, nextLetter, depths);
 	free(root);
-	return;
+	return nextLetter;
 }
