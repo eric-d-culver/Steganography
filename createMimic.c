@@ -9,18 +9,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <string.h>
-
-enum {MAGICLEN=5};
-const char MAGIC[MAGICLEN]={ 'M', 'i', 'M', 'i', 'C' };
-enum {TYPELEN=1};
-const char TYPE[TYPELEN]={ '\001' }; /* representing Huffman type mimic file */
-enum {ENDLEN=3};
-const char END[ENDLEN]={ 'E', 'N', 'D' };
-
-typedef struct _where_ {
-	long filePosition;
-	int sizeOfEntry;
-} where;
+#include "mimic.h"
 
 typedef struct _node_ {
 	int value;
@@ -52,11 +41,13 @@ int main(int argc, char* argv[]) {
 
 	int freqs[1<<CHAR_BIT];
 	int i, j;
-	where wheres[1<<CHAR_BIT];
+	where * wheres;
+	wheres=(where *)malloc((1<<n)*sizeof(where));
 
 	/* write magic to mimic file */
 	fwrite(MAGIC, sizeof(char), MAGICLEN, fout);
 
+	/* write type to mimic file */
 	fwrite(TYPE, sizeof(char), TYPELEN, fout);
 
 	/* write n to mimic file */
@@ -123,7 +114,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	/* writes wheres to mimic file */
-	fwrite(wheres, sizeof(index), 1<<CHAR_BIT, fout);
+	fwrite(wheres, sizeof(index), 1<<n, fout);
 
 	/* write end to mimic file */
 	fwrite(END, sizeof(char), ENDLEN, fout);
