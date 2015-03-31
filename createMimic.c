@@ -30,9 +30,11 @@ typedef struct _node_ {
 
 void increment(char* array, int size);
 
-void findTwoSmallest(node** array, int size, int &first, int &second);
+void findTwoSmallest(node** array, int size, int* first, int* second);
 
 int numNonZero(node** array, int size);
+
+int isLeaf(node* np);
 
 int main(int argc, char* argv[]) {
 	FILE *fin=fopen(argv[1], "r");
@@ -91,7 +93,7 @@ int main(int argc, char* argv[]) {
 
 		unsigned int firstIndex, secondIndex, topIndex;
 		while (numNonZero(array, 1<<CHAR_BIT)>1) {
-			findTwoSmallest(array, 1<<CHAR_BIT, firstIndex, secondIndex);
+			findTwoSmallest(array, 1<<CHAR_BIT, &firstIndex, &secondIndex);
 			node *oneUp = (node *)malloc(sizeof(node));
 			oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
 
@@ -108,12 +110,13 @@ int main(int argc, char* argv[]) {
 			topIndex=firstIndex;
 		}
 
-		//now root of tree is at array[topIndex]
+		/* root of tree is at array[topIndex] */
 
 		//find depth of each node and put them in order from least deep to most deep
 		char* huffCode;
 		huffCode=(char *)malloc(sizeof(char)*(1<<CHAR_BIT));
 
+		
 
 		//free memory in array
 		for (i=0; i<(1<<(CHAR_BIT+1)); ++i) {
@@ -155,14 +158,15 @@ void increment(char* array, int size) {
 	return;
 }
 
-void findTwoSmallest(node** array, int size, int& first, int& second) {
-	first=second=0;
+void findTwoSmallest(node** array, int size, int* first, int* second) {
+	*first=0;
+	*second=0;
 	int i;
 	for (i=0; i<size; ++i) {
 		if (array[i]->value == 0) continue;
-		if (array[i]->value < array[second]->value) {
-			if (array[i]->value < array[first]->value) first=i;
-			else second=i;
+		if (array[i]->value < array[*second]->value) {
+			if (array[i]->value < array[*first]->value) *first=i;
+			else *second=i;
 		}
 	}
 	return;
@@ -174,4 +178,9 @@ int numNonZero(node** array, int size) {
 	for (i=0; i<size; ++i)
 		if (array[i]->value!=0) ++num;
 	return num;
+}
+
+int isLeaf(node* np) {
+	if (np->left==NULL && np->right==NULL) return 1;
+	return 0;
 }
