@@ -26,6 +26,7 @@ typedef struct _node_ {
 	int value;
 	char letter;
 	struct _node_ *left, *right;
+	struct _node_ *parent;
 } node;
 
 void increment(char* array, int size);
@@ -89,6 +90,7 @@ int main(int argc, char* argv[]) {
 			array[i]->letter=i;
 			array[i]->left=NULL;
 			array[i]->right=NULL;
+			array[i]->parent=NULL;
 		}
 
 		unsigned int firstIndex, secondIndex, topIndex;
@@ -105,6 +107,8 @@ int main(int argc, char* argv[]) {
 				oneUp->right=array[firstIndex];
 			}
 
+			array[firstIndex]->parent=oneUp;
+			array[secondIndex]->parent=oneUp;
 			array[firstIndex]=oneUp;
 			array[secondIndex]->value=0;
 			topIndex=firstIndex;
@@ -115,8 +119,14 @@ int main(int argc, char* argv[]) {
 		//find depth of each node and put them in order from least deep to most deep
 		char* huffCode;
 		huffCode=(char *)malloc(sizeof(char)*(1<<CHAR_BIT));
+		char* place=huffCode;
 
-		
+		node * curNode;
+		curNode=array[topIndex];
+		while(1) {
+			if (isLeaf(curNode)) *place=curNode->letter;
+			else curNode=curNode->left;
+		}
 
 		//free memory in array
 		for (i=0; i<(1<<(CHAR_BIT+1)); ++i) {
