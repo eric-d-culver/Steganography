@@ -117,6 +117,9 @@ int main(int argc, char* argv[]) {
 
 		/* increment ngram */
 		increment(ngram, n-1);
+
+		/* reset input file */
+		rewind(fin);
 	}
 
 	/* writes wheres to mimic file */
