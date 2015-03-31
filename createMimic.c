@@ -44,14 +44,8 @@ int main(int argc, char* argv[]) {
 	where * wheres;
 	wheres=(where *)malloc((1<<n)*sizeof(where));
 
-	/* write magic to mimic file */
-	fwrite(MAGIC, sizeof(char), MAGICLEN, fout);
-
-	/* write type to mimic file */
-	fwrite(TYPE, sizeof(char), TYPELEN, fout);
-
-	/* write n to mimic file */
-	fwrite(&n, sizeof(char), 1, fout);
+	/* write header of mimic file */
+	writeHeader(n, fout);
 
 	/* initializing ngram */
 	for (i=0; i<(n-1); ++i) {
@@ -113,15 +107,15 @@ int main(int argc, char* argv[]) {
 		rewind(fin);
 	}
 
-	/* writes wheres to mimic file */
-	fwrite(wheres, sizeof(index), 1<<n, fout);
-
-	/* write end to mimic file */
-	fwrite(END, sizeof(char), ENDLEN, fout);
+	/* write end of mimic file */
+	writeEnd(wheres, 1<<n, fout);
 
 	/* clean up */
 	free(window);
 	free(ngram);
+	free(wheres);
+	fclose(fin);
+	fclose(fout);
 
 	return 0;
 }
