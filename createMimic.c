@@ -35,7 +35,11 @@ void findTwoSmallest(node** array, int size, int* first, int* second);
 
 int numNonZero(node** array, int size);
 
+node * buildTree(node** array, int size);
+
 int isLeaf(node* np);
+
+void extractLettersAndFree(node* root, int depth, char* letters, char* depths);
 
 int main(int argc, char* argv[]) {
 	FILE *fin=fopen(argv[1], "r");
@@ -93,50 +97,22 @@ int main(int argc, char* argv[]) {
 			array[i]->parent=NULL;
 		}
 
-		unsigned int firstIndex, secondIndex, topIndex;
-		while (numNonZero(array, 1<<CHAR_BIT)>1) {
-			findTwoSmallest(array, 1<<CHAR_BIT, &firstIndex, &secondIndex);
-			node *oneUp = (node *)malloc(sizeof(node));
-			oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
+		node *root=buildTree(array, 1<<CHAR_BIT);
 
-			if (firstIndex<secondIndex) {
-				oneUp->left=array[firstIndex];
-				oneUp->right=array[secondIndex];
-			} else {
-				oneUp->left=array[secondIndex];
-				oneUp->right=array[firstIndex];
-			}
+		char huffCode[1<<CHAR_BIT];
+		char* place=(char *)huffCode;
+		char depths[CHAR_BIT];
 
-			array[firstIndex]->parent=oneUp;
-			array[secondIndex]->parent=oneUp;
-			array[firstIndex]=oneUp;
-			array[secondIndex]->value=0;
-			topIndex=firstIndex;
-		}
+		for (i=0; i<CHAR_BIT; ++i) depths[i]=0;
 
-		/* root of tree is at array[topIndex] */
-
-		//find depth of each node and put them in order from least deep to most deep
-		char* huffCode;
-		huffCode=(char *)malloc(sizeof(char)*(1<<CHAR_BIT));
-		char* place=huffCode;
-
-		node * curNode;
-		curNode=array[topIndex];
-		while(1) {
-			if (isLeaf(curNode)) *place=curNode->letter;
-			else curNode=curNode->left;
-		}
-
-		//free memory in array
-		for (i=0; i<(1<<(CHAR_BIT+1)); ++i) {
-			free(array[i]);
-		}
-		//Write to file with num of each depth
+		/* traverse tree, picking up letters in order from least deep to most deep */
+		/* also free memory for tree, we don't need it anymore */
+		extractLettersAndFree(root, 0, place, depths);
 
 		/* write to mimic file */
 		wheres[j].filePosition=ftell(fout);
-		// fwrite(huffCode, sizeof(char), numchars, fout)
+		fwrite(depths, sizeof(char), CHAR_BIT, fout);
+		fwrite(huffCode, sizeof(char), place-huffCode, fout);
 		wheres[j].sizeOfEntry=ftell(fout)-wheres[j].filePosition;
 
 		/* increment ngram */
@@ -190,7 +166,44 @@ int numNonZero(node** array, int size) {
 	return num;
 }
 
+node * buildTree(node** array, int size) {
+	unsigned int firstIndex, secondIndex, topIndex;
+	while (numNonZero(array, size)>1) {
+		findTwoSmallest(array, size, &firstIndex, &secondIndex);
+		node *oneUp = (node *)malloc(sizeof(node));
+		oneUp->value=array[firstIndex]->value + array[secondIndex]->value;
+
+		if (firstIndex<secondIndex) {
+			oneUp->left=array[firstIndex];
+			oneUp->right=array[secondIndex];
+		} else {
+			oneUp->left=array[secondIndex];
+			oneUp->right=array[firstIndex];
+		}
+
+		array[firstIndex]->parent=oneUp;
+		array[secondIndex]->parent=oneUp;
+		array[firstIndex]=oneUp;
+		array[secondIndex]->value=0;
+		topIndex=firstIndex;
+	}
+	return array[topIndex];
+}
+
 int isLeaf(node* np) {
 	if (np->left==NULL && np->right==NULL) return 1;
 	return 0;
+}
+
+void extractLettersAndFree(node* root, int depth, char* nextLetter, char* depths) {
+	if (isLeaf(root)) {
+		*(nextLetter++)=root->letter;
+		++depths[depth];
+		free(root);
+		return;
+	}
+	extractLettersAndFree(root->left, depth+1, nextLetter, depths);
+	extractLettersAndFree(root->right, depth+1, nextLetter, depths);
+	free(root);
+	return;
 }
