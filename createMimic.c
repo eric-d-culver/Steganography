@@ -12,6 +12,8 @@
 
 enum {MAGICLEN=5};
 const char MAGIC[MAGICLEN]={ 'M', 'i', 'M', 'i', 'C' };
+enum {TYPELEN=1};
+const char TYPE[TYPELEN]={ '\001' }; /* representing Huffman type mimic file */
 enum {ENDLEN=3};
 const char END[ENDLEN]={ 'E', 'N', 'D' };
 
@@ -28,9 +30,9 @@ typedef struct _node_ {
 
 void increment(char* array, int size);
 
-void findTwoSmallest(node* array, int size, int& first, int& second);
+void findTwoSmallest(node** array, int size, int &first, int &second);
 
-int numNonZero(node* array, int size);
+int numNonZero(node** array, int size);
 
 int main(int argc, char* argv[]) {
 	FILE *fin=fopen(argv[1], "r");
@@ -47,6 +49,8 @@ int main(int argc, char* argv[]) {
 
 	/* write magic to mimic file */
 	fwrite(MAGIC, sizeof(char), MAGICLEN, fout);
+
+	fwrite(TYPE, sizeof(char), TYPELEN, fout);
 
 	/* write n to mimic file */
 	fwrite(&n, sizeof(char), 1, fout);
@@ -151,7 +155,7 @@ void increment(char* array, int size) {
 	return;
 }
 
-void findTwoSmallest(node* array, int size, int& first, int& second) {
+void findTwoSmallest(node** array, int size, int& first, int& second) {
 	first=second=0;
 	int i;
 	for (i=0; i<size; ++i) {
@@ -164,7 +168,7 @@ void findTwoSmallest(node* array, int size, int& first, int& second) {
 	return;
 }
 
-int numNonZero(node* array, int size) {
+int numNonZero(node** array, int size) {
 	int i;
 	int num;
 	for (i=0; i<size; ++i)
