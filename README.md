@@ -6,6 +6,7 @@ This contains the following files:
 - deal.c
 - shuffle.c
 - ngram_count.py
+- pyngram.py
 
 ## Usage
 **ensteg.c**
@@ -27,7 +28,15 @@ Takes the bytes of the input files and shuffles them into one file (named input.
 **ngram_count.py**
 - python ngram_count.py [-b] filename n > ngramfile  
 Counts the ngrams in input file and outputs "Ngram file" followed by the value of n, followed by all the ngrams in the input file a pipe and their frequency, ordered with highest frequency first.  The output of this can be used as the input for a mimic function.  
-Uses non-standard Python module pyngram.  Can be installed with 'sudo pip install pyngram'.  
+Uses Python module pyngram (included).  
+
+**pyngram.py**
+Python module used in ngram_count.py. Created by [Jay Liew].
 
 ## Acknowledgements
-The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam](http://www.cs.nmsu.edu/~joshagam/css/)
+The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam]
+Python module pyngram created by [Jay Liew]
+
+<!-- Links -->
+[Josuha Shagam]: http://www.cs.nmsu.edu/~joshagam/css/
+[Jay Liew]: http://jayliew.com/
