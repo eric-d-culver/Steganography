@@ -30,7 +30,7 @@ Takes the bytes of the input files and shuffles them into one file (named input.
 Counts the ngrams in input file and outputs "Ngram file" followed by the value of n, followed by all the ngrams in the input file a pipe and their frequency, ordered with highest frequency first.  The output of this can be used as the input for a mimic function.  
 Uses Python module pyngram (included).  
 
-**pyngram.py**
+**pyngram.py**  
 Python module used in ngram_count.py. Created by [Jay Liew].
 
 ## Acknowledgements
