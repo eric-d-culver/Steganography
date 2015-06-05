@@ -5,6 +5,7 @@
 input.txt
 output.txt
 input.ppm
+shakespeare.txt
 
 #ignore gitignore
 .gitignore
@@ -14,4 +15,3 @@ ensteg
 desteg
 deal
 shuffle
-createMimic
