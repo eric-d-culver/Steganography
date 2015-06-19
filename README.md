@@ -6,7 +6,9 @@ This contains the following files:
 - deal.c
 - shuffle.c
 - ngram_count.py
+- huffman.py
 - pyngram.py
+- tree.py
 
 ## Usage
 **ensteg.c**
@@ -30,8 +32,15 @@ Takes the bytes of the input files and shuffles them into one file (named input.
 Counts the ngrams in input file and outputs "Ngram file" followed by the value of n, followed by all the ngrams in the input file a pipe and their frequency, ordered with highest frequency first.  The output of this can be used as the input for a mimic function.  
 Uses Python module pyngram (included).  
 
+**huffman.py**
+- python huffman.py ngramfile > huffmanfile
+Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs a file with the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file.
+
 **pyngram.py**  
 Python module used in ngram_count.py. Created by [Jay Liew].
+
+**tree.py**
+Python script defining the Node class to make tree creation easier in huffman.py
 
 ## Acknowledgements
 The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam]
