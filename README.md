@@ -29,12 +29,12 @@ Takes the bytes of the input files and shuffles them into one file (named input.
 
 **ngram_count.py**
 - python ngram_count.py [-b] filename n > ngramfile  
-Counts the ngrams in input file and outputs "Ngram file" followed by the value of n, followed by all the ngrams in the input file a pipe and their frequency, ordered with highest frequency first.  The output of this can be used as the input for a mimic function.  
+Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file a pipe and their frequency, ordered with highest frequency first.  The output of this can be used as the input for a mimic function.  
 Uses Python module pyngram (included).  
 
 **huffman.py**
 - python huffman.py ngramfile > huffmanfile
-Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs a file with the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file.
+Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs "Huffman" then the value of n, then the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file.
 
 **pyngram.py**  
 Python module used in ngram_count.py. Created by [Jay Liew].
