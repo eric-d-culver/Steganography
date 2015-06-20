@@ -31,8 +31,8 @@ Takes the bytes in input.data and "deals" them into num files (named input0.data
 Takes the bytes of the input files and shuffles them into one file (named input.data, i.e. simply remove the number from the first filename) by taking the first byte of the first file, then the first byte of the second file, and so on, then the second byte of each file, and then the third byte, and so on.
 
 **ngram_count.py**
-- python ngram_count.py [-b] filename n > ngramfile  
-Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file a pipe and their frequency, ordered with highest frequency first.  The output of this can be used as the input for a mimic function.  
+- python ngram_count.py [-b] -i filename n > ngramfile  
+Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file a pipe and their frequency, ordered with highest frequency first.  The output of this can be used as the input for huffman.py.  
 Uses Python module pyngram (included).  
 
 **huffman.py**
