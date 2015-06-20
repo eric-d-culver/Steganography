@@ -4,13 +4,6 @@ import tree
 def getNgram(data):
 	return data['ngram']
 
-def freeTree(root):
-	if root == None:
-		return None
-	root.left = freeTree(root.left)
-	root.right = freeTree(root.right)
-	return None
-
 def codeLength(root, length):
 	if root == None:
 		return
@@ -69,7 +62,7 @@ while info:
 	codeLength(forest[0], 0)
 	leaves = []
 	getLeaves(forest[0], leaves)
-	forest[0] = freeTree(forest[0])
+	forest[0] = tree.freeTree(forest[0])
 	# print prefix
 	print prefix + ':'
 	# print symbols and huffman code length
