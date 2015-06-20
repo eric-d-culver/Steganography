@@ -16,8 +16,7 @@ n=1
 for line in fileinput.input():
 	if fileinput.lineno() == 1:
 		if line != 'Ngrams\n':
-			print "Only Ngram files accepted as input"
-			exit(1)
+			raise Exception, "Only Ngram files accepted as input"
 	elif fileinput.lineno() == 2:
 		n = int(line)
 	else:
@@ -47,8 +46,7 @@ while info:
 	# construct huffman tree over forest
 	while len(forest) > 1:
 		forest.sort(key = lambda node: node.data['prob'])
-		x, y = forest[:2]
-		forest = forest[2:]
+		x, y, forest = forest[0], forest[1], forest[2:]
 		forest.append(tree.Node({'prob':x.data['prob'] + y.data['prob']}, x, y))
 	codeLength(forest[0], 0)
 	leaves = []
