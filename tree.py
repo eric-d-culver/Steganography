@@ -10,3 +10,12 @@ def freeTree(root):
 	root.left = freeTree(root.left)
 	root.right = freeTree(root.right)
 	return None
+
+def getLeaves(root, leaves):
+	if root == None:
+		return
+	elif root.left != None or root.right != None:
+		getLeaves(root.left, leaves)
+		getLeaves(root.right, leaves)
+	else:
+		leaves.append(root)

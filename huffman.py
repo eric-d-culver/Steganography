@@ -11,15 +11,6 @@ def codeLength(root, length):
 	codeLength(root.left, length+1)
 	codeLength(root.right, length+1)
 
-def getLeaves(root, leaves):
-	if root == None:
-		return
-	if root.left != None or root.right != None:
-		getLeaves(root.left, leaves)
-		getLeaves(root.right, leaves)
-	else:
-		leaves.append({'symbol': root.data['symbol'], 'length': root.data['length']})
-
 info = [] 
 n=1
 for line in fileinput.input():
@@ -61,10 +52,10 @@ while info:
 		forest.append(tree.Node({'prob':x.data['prob'] + y.data['prob']}, x, y))
 	codeLength(forest[0], 0)
 	leaves = []
-	getLeaves(forest[0], leaves)
-	forest[0] = tree.freeTree(forest[0])
+	tree.getLeaves(forest[0], leaves)
 	# print prefix
 	print prefix + ':'
 	# print symbols and huffman code length
-	for thing in leaves:
-		print '\t' + str(thing['symbol']) + ' ' + str(thing['length'])
+	for leaf in leaves:
+		print '\t' + str(leaf.data['symbol']) + ' ' + str(leaf.data['length'])
+	forest[0] = tree.freeTree(forest[0])
