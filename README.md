@@ -1,4 +1,7 @@
 # Steganography
+## Purpose
+This is a series of small programs written in C and Python that can be used as Steganographic tools.  There are tools to hide information in pictures, split information into several files, and make information mimic the look of different information.  Most programs come in pairs, one to hide the information, and one to find the information that someone else has hidden.  The purpose of these is not to make your data "safe" or unreadable by a snooper.  If someone knows that you have hidden data in a picture, they can easily find it.  The purpose of these, and Steganography in general, is to make it hard for someone who doesn't know where you hid the data to find it. If you want your data to be secure, encrypt it.   
+The Python scripts can be converted to C code with a Cython interpreter, then all the code can be converted to executables with a C compiler.
 ## Files 
 This contains the following files:
 - ensteg.c
@@ -40,7 +43,7 @@ Groups the ngrams by the first n-1 characters, then constructs Huffman codes for
 Python module used in ngram_count.py. Created by [Jay Liew].
 
 **tree.py**
-Python script defining the Node class to make tree creation easier in huffman.py
+Python script defining the Node class to make tree creation and manipulation easier in huffman.py
 
 ## Acknowledgements
 The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam]
