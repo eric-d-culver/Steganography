@@ -19,3 +19,4 @@ def getLeaves(root, leaves):
 		getLeaves(root.right, leaves)
 	else:
 		leaves.append(root)
+	return leaves
