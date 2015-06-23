@@ -31,13 +31,13 @@ Takes the bytes in input.data and "deals" them into num files (named input0.data
 Takes the bytes of the input files and shuffles them into one file (named input.data, i.e. simply remove the number from the first filename) by taking the first byte of the first file, then the first byte of the second file, and so on, then the second byte of each file, and then the third byte, and so on.
 
 **ngram_count.py**
-- python ngram_count.py [-b] -i filename n > ngramfile  
-Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file a space and their frequency, ordered with highest frequency first.  The output of this can be used as the input for huffman.py.  
+- python ngram_count.py -i filename n > ngramfile  
+Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file a space and their frequency, ordered with highest frequency first.  Replaces newlines with the padding character U+80 to ease reading of output file.  The output of this can be used as the input for huffman.py.  
 Uses Python module pyngram (included).  
 
 **huffman.py**
 - python huffman.py ngramfile > huffmanfile
-Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs "Huffman" then the value of n, then the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file.
+Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs "Huffman" then the value of n, then the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file. Reads padding character U+80 as a newline, and outputs U+80 to mean a newline for ease of reading the output file.
 
 **pyngram.py**  
 Python module used in ngram_count.py. Created by [Jay Liew].
