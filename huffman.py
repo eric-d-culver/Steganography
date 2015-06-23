@@ -12,9 +12,9 @@ def codeLength(root, length): # assigns lengths (distance from root) to each nod
 	codeLength(root.right, length+1)
 
 def printHuffCode(prefix, leaves):
-	print prefix + ':' # print prefix
+	print str(prefix).replace('\n', '\x80') + ':' # print prefix
 	for leaf in leaves: # print symbols and huffman code length
-		print '\t' + str(leaf.data['symbol']) + ' ' + str(leaf.data['length'])
+		print '\t' + str(leaf.data['symbol']).replace('\n', '\x80') + ' ' + str(leaf.data['length'])
 
 def extractPrefixed(prefix, info):
 	symbols = []
@@ -51,7 +51,7 @@ def getNgramsFromFile():
 		else:
 			ngram = line[:n]
 			prob = line[(n+1):]
-			info.append({'ngram': str(ngram), 'prob': int(prob)})
+			info.append({'ngram': str(ngram).replace('\x80', '\n'), 'prob': int(prob)})
 	return n, info
 
 n, info = getNgramsFromFile()

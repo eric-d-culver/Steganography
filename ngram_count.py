@@ -2,7 +2,7 @@ import sys, argparse
 from pyngram import calc_ngram
 
 def ngrams_text(file, n):
-	return calc_ngram(file.read().replace("\n", ""), n)
+	return calc_ngram(file.read().replace("\n", "\x80"), n)
 
 def ngrams_bin(file, n):
 	return calc_ngram(file.read(), n)
