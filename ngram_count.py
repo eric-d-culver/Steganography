@@ -11,7 +11,7 @@ def print_ngrams(ngrams, n):
 	print 'Ngrams'
 	print str(n)
 	for t in ngrams:
-		print t[0] + "|" + str(t[1])
+		print t[0] + " " + str(t[1])
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Creates ngram probabilities for input file')
