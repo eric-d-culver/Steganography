@@ -15,5 +15,5 @@ if __name__ == '__main__':
 	parser.add_argument('-i', dest='filename', type=file, default=sys.stdin, help='name of file')
 	parser.add_argument('n', type=int, help='size of ngrams in characters')
 	args = parser.parse_args()
-	print_ngrams(args.binary(args.filename, args.n), args.n)
+	print_ngrams(ngrams_text(args.filename, args.n), args.n)
 
