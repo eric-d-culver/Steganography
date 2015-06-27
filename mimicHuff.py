@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import fileinput, sys
-import bitRead
+import bitFile
 
 def readHuffman(file): # read info from Huffman file
 	info=[]
@@ -55,7 +55,7 @@ def getSymbols(info, prefix):
 	return []
 
 def convert(infile, outfile, info, seed = ''): # read file bit by bit and convert using codes in info into output stream
-	input = bitRead.bitRead(infile)
+	input = bitFile.bitRead(infile)
 	outfile.write(seed)
 	prefix = list(seed)
 	while len(input.peek(1)) != 0:
