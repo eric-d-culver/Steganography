@@ -13,7 +13,7 @@ This contains the following files:
 - mimic.py
 - pyngram.py
 - tree.py
-- bitRead.py
+- bitFile.py
 
 ## Usage
 **ensteg.c**
@@ -51,7 +51,7 @@ Python module used in ngram_count.py. Created by [Jay Liew].
 **tree.py**
 Python script defining the Node class to make tree creation and manipulation easier in huffman.py
 
-**bitRead.py**
+**bitFile.py**
 Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimic.py.
 
 ## Acknowledgements
