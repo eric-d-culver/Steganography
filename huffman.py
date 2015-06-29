@@ -1,4 +1,5 @@
 import fileinput
+import collections
 import tree
 
 def getNgram(data):
@@ -52,10 +53,10 @@ def getNgramsFromFile():
 			ngram = line[:n]
 			prob = line[(n+1):]
 			info.append({'ngram': str(ngram).replace('\x80', '\n'), 'prob': int(prob)})
-	return n, info
+	info.sort(key = getNgram)
+	return n, collections.deque(info)
 
 n, info = getNgramsFromFile()
-info.sort(key = getNgram)
 
 print 'Huffman'
 print str(n)
