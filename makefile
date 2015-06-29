@@ -2,14 +2,14 @@
 
 # compiler/interpreters
 CC=gcc
-PYTHON=python
+PYTHON=python2.7
 CYTHON=cython
 # flags
 WARNINGS = -Wall
 CFLAGS= -std=c11 # $(WARNINGS)
 
 # executable python files
-PYMAIN = ngramCount.py huffman.py mimicHuff.py
+PYMAIN = ngramCount.py huffman.py mimicNgram.py demimicNgram.py
 
 # helping python modules
 PYHELP = pyngram.py tree.py bitFile.py
@@ -18,13 +18,13 @@ PYHELP = pyngram.py tree.py bitFile.py
 NODEPS = ensteg desteg deal shuffle
 
 # names of produced executables
-EXECS = ensteg desteg deal shuffle ngramCount huffman mimicHuff
+EXECS = ensteg desteg deal shuffle ngramCount huffman mimicNgram demimicNgram
 
 # additional helping variables
 CYMAIN = $(PYMAIN:.py=.c)
 CYHELP = $(PYHELP:.py=.c)
 CYTHONOBJS = $(CYMAIN:.c=.o) $(CYHELP:.c=.o)
-PYINCLUDES = $(shell $(PYTHON)-config --include)
+PYINCLUDES = $(shell $(PYTHON)-config --includes)
 PYLINK = -l$(PYTHON)
 
 all: $(EXECS)
@@ -51,7 +51,10 @@ ngramCount: ngramCount.o pyngram.o
 huffman: huffman.o tree.o
 	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
 
-mimicHuff: mimicHuff.o bitFile.o
+mimicNgram: mimicNgram.o bitFile.o
+	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
+
+demimicNgram: demimicNgram.o bitFile.o
 	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
 
 .PHONY: cleanup clean all
