@@ -38,15 +38,9 @@ def giveCodes(info): # assign codes to each symbol based on lengths (symbols in 
 		curCode = []
 		for symbol in thing['symbols']:
 			while len(curCode) < symbol['length']:
-				#print "lengthening"
-				#print curCode
 				curCode.append(0)
 			symbol['code'] = list(curCode)
-			#print "assigning"
-			#print curCode
 			curCode = addOne(curCode)
-			#print "adding one"
-			#print curCode
 
 def getSymbols(info, prefix):
 	for thing in info:
@@ -72,7 +66,6 @@ def encode(infile, outfile, info, seed = ''): # read file bit by bit and encode 
 		outfile.write(next)
 		prefix.append(next)
 		prefix = prefix[1:]
-		#print prefix
 
 if __name__ == "__main__": # Stdin should be the file that is being hidden, stdout is file mimicing freqs of huffman file
 	if len(sys.argv) > 2:
