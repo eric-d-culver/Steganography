@@ -88,10 +88,5 @@ if __name__ == "__main__": # Stdin should be the file that is being hidden, stdo
 	n, info = readHuffman(infofile)
 	giveCodes(info)
 	encode(infile, sys.stdout, info, "The ")
-	'''
-	for thing in info:
-		if thing['prefix'] == "    ":
-			print thing
-	'''
 	infofile.close()
 	infile.close()
