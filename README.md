@@ -55,9 +55,9 @@ Python script defining the Node class to make tree creation and manipulation eas
 Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimic.py.
 
 ## Acknowledgements
-The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam]  
-Python module pyngram created by [Jay Liew]  
+The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam].  
+Python module pyngram created by [Jay Liew].  
 
 <!-- Links -->
-[Josuha Shagam]: http://www.cs.nmsu.edu/~joshagam/css/
-[Jay Liew]: http://jayliew.com/
+[Josuha Shagam]: <http://www.cs.nmsu.edu/~joshagam/css/>
+[Jay Liew]: <http://jayliew.com/>
