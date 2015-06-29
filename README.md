@@ -35,18 +35,18 @@ Takes the bytes of the input files and shuffles them into one file (named input.
 
 **ngramCount.py**
 - python ngramCount.py -i filename n > ngramfile  
-- ngramCount -i filename n > ngramfile
+- ngramCount -i filename n > ngramfile  
 Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file a space and their frequency, ordered with highest frequency first.  Replaces newlines with the padding character U+80 to ease reading of output file.  The output of this can be used as the input for huffman.py.  
 Uses Python module pyngram (included).  
 
 **huffman.py**
 - python huffman.py ngramfile > huffmanfile
-- huffman ngramfile > huffmanfile
+- huffman ngramfile > huffmanfile  
 Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs "Huffman" then the value of n, then the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file. Reads padding character U+80 as a newline, and outputs U+80 to mean a newline for ease of reading the output file.
 
 **mimicHuff.py**
 - python mimicHuff.py inputfile huffmanfile > outputfile  
-- mimicHuff inputfile huffmanfile > outputfile
+- mimicHuff inputfile huffmanfile > outputfile  
 Converts the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read to inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with a seed of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
 
 **pyngram.py**  
@@ -62,7 +62,7 @@ Python script defining the bitRead class to allow files to be easily read one bi
 - make all  
 - make <name of program> (ex.: make ngramCount)
 - make cleanup
-- make clean
+- make clean  
 Standard makefile to be used with *nix make utility.  Requires Python and Cython to make python scripts into executables.  No guaranty it will work on all systems. Will not make helper python modules into stand alone executables. Also includes two useful commands: cleanup and clean.  "make cleanup" will remove all the intermediate files created when making the executables (i.e. object files, the Cython C files, etc.).  "make clean" will remove all the intermediate files and all the executables (useful to force everything to be remade).
 
 ## Acknowledgements
