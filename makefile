@@ -1,25 +1,40 @@
 #makefile for Steganography project
+
+# compiler/interpreters
 CC=gcc
+PYTHON=python
+CYTHON=cython
+# flags
 WARNINGS = -Wall
 CFLAGS= -std=c11 # $(WARNINGS)
+
+# executable python files
 PYMAIN = ngramCount.py huffman.py mimicHuff.py
+
+# helping python modules
 PYHELP = pyngram.py tree.py bitFile.py
+
+# stand alone executables
+NODEPS = ensteg desteg deal shuffle
+
+# names of produced executables
+EXECS = ensteg desteg deal shuffle ngramCount huffman mimicHuff
+
+# additional helping variables
 CYMAIN = $(PYMAIN:.py=.c)
 CYHELP = $(PYHELP:.py=.c)
 CYTHONOBJS = $(CYMAIN:.c=.o) $(CYHELP:.c=.o)
-PYINCLUDES = $(shell python-config --include)
-PYLINK = -lpython2.7
-NODEPS = ensteg desteg deal shuffle
-EXECS = ensteg desteg deal shuffle ngramCount huffman mimicHuff
+PYINCLUDES = $(shell $(PYTHON)-config --include)
+PYLINK = -l$(PYTHON)
 
 all: $(EXECS)
 
 
 $(CYMAIN): %.c: %.py
-	cython --embed -o $@ $<
+	$(CYTHON) --embed -o $@ $<
 
 $(CYHELP): %.c: %.py
-	cython -o $@ $<
+	$(CYTHON) -o $@ $<
 
 $(CYTHONOBJS): %.o: %.c
 	$(CC) $(CFLAGS) $(PYINCLUDES) -c -o $@ $<
@@ -43,7 +58,7 @@ mimicHuff: mimicHuff.o bitFile.o
 
 
 cleanup:
-	rm -f *.o *.pyc $(CYTHON)
+	rm -f *.o *.pyc $(CYMAIN) $(CYHELP)
 
 clean:
-	rm -f *.o *.pyc $(CYTHON) $(EXECS)
+	rm -f *.o *.pyc $(CYMAIN) $(CYHELP) $(EXECS)
