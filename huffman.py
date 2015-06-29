@@ -14,7 +14,7 @@ def codeLength(root, length): # assigns lengths (distance from root) to each nod
 def printHuffCode(prefix, leaves):
 	print str(prefix).replace('\n', '\x80') + ':' # print prefix
 	for leaf in leaves: # print symbols and huffman code length
-		print '\t' + str(leaf.data['symbol']).replace('\n', '\x80') + ' ' + str(leaf.data['length'])
+		print '\t' + str(leaf.data['symbol']).replace('\n', '\x80') + ':' + str(leaf.data['length'])
 
 def extractPrefixed(prefix, info):
 	symbols = []
