@@ -46,5 +46,5 @@ class bitWrite:
 	def write(self, theseBits):
 		self.bits.extend(theseBits)
 		while len(self.bits) >= 8:
-			file.write(chr(bitsToByte(self.bits[:8])))
+			slef.file.write(chr(bitsToByte(self.bits[:8])))
 			self.bits = self.bits[8:]
