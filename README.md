@@ -48,15 +48,15 @@ Converts the inputfile into a file mimicking the relative frequencies expressed 
 **pyngram.py**  
 Python module used in ngram_count.py. Created by [Jay Liew].
 
-**tree.py**
+**tree.py**  
 Python script defining the Node class to make tree creation and manipulation easier in huffman.py
 
-**bitFile.py**
+**bitFile.py**  
 Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimic.py.
 
 ## Acknowledgements
-The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam]
-Python module pyngram created by [Jay Liew]
+The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam]  
+Python module pyngram created by [Jay Liew]  
 
 <!-- Links -->
 [Josuha Shagam]: http://www.cs.nmsu.edu/~joshagam/css/
