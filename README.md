@@ -46,7 +46,7 @@ Groups the ngrams by the first n-1 characters, then constructs Huffman codes for
 Converts the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read to inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with a seed of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
 
 **pyngram.py**  
-Python module used in ngram_count.py. Created by [Jay Liew].
+Python module used in ngram_count.py. Created by [Jay Liew][pyngram].
 
 **tree.py**  
 Python script defining the Node class to make tree creation and manipulation easier in huffman.py
@@ -55,9 +55,9 @@ Python script defining the Node class to make tree creation and manipulation eas
 Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimic.py.
 
 ## Acknowledgements
-The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam].  
-Python module pyngram created by [Jay Liew].  
+The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam][ensteg].  
+Python module pyngram created by [Jay Liew][pyngram].  
 
 <!-- Links -->
-[Josuha Shagam]: <http://www.cs.nmsu.edu/~joshagam/css/>
-[Jay Liew]: <http://jayliew.com/>
+[ensteg]: <http://www.cs.nmsu.edu/~joshagam/css/>
+[pyngram]: <http://jayliew.com/>
