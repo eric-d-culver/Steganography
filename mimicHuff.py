@@ -54,7 +54,7 @@ def getSymbols(info, prefix):
 			return thing['symbols']
 	return []
 
-def convert(infile, outfile, info, seed = ''): # read file bit by bit and convert using codes in info into output stream
+def encode(infile, outfile, info, seed = ''): # read file bit by bit and encode using codes in info into output stream
 	input = bitFile.bitRead(infile)
 	outfile.write(seed)
 	prefix = list(seed)
@@ -87,7 +87,7 @@ if __name__ == "__main__": # Stdin should be the file that is being hidden, stdo
 
 	n, info = readHuffman(infofile)
 	giveCodes(info)
-	convert(infile, sys.stdout, info, "The ")
+	encode(infile, sys.stdout, info, "The ")
 	'''
 	for thing in info:
 		if thing['prefix'] == "    ":
