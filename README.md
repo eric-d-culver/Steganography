@@ -69,7 +69,8 @@ Python script defining the bitRead class to allow files to be easily read one bi
 - make <name of program> (ex.: make ngramCount)
 - make cleanup
 - make clean  
-Standard makefile to be used with *nix make utility.  Requires Python and Cython to make python scripts into executables.  No guaranty it will work on all systems. Will not make helper python modules into stand alone executables. Also includes two useful commands: cleanup and clean.  "make cleanup" will remove all the intermediate files created when making the executables (i.e. object files, the Cython C files, etc.).  "make clean" will remove all the intermediate files and all the executables (useful to force everything to be remade).
+Standard makefile to be used with \*nix make utility.  Requires Python and Cython to make python scripts into executables.  No guaranty it will work on all systems. Will not make helper python modules into stand alone executables. Also includes two useful commands: cleanup and clean.  "make cleanup" will remove all the intermediate files created when making the executables (i.e. object files, the Cython C files, etc.).  "make clean" will remove all the intermediate files and all the executables (useful to force everything to be remade).  
+If it does not work the important lines are the three near the top.  CC should be equal to your C compiler.  PYTHON should be your python interpreter with version.  CYTHON should be your cython converter.  If your command line returns an error saying they don't exist, you may need to put in the entire directory path.  
 
 ## Acknowledgements
 The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam][ensteg].  
