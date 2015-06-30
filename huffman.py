@@ -1,4 +1,5 @@
 import fileinput
+import collections
 import tree
 
 def getNgram(data):
@@ -14,7 +15,7 @@ def codeLength(root, length): # assigns lengths (distance from root) to each nod
 def printHuffCode(prefix, leaves):
 	print str(prefix).replace('\n', '\x80') + ':' # print prefix
 	for leaf in leaves: # print symbols and huffman code length
-		print '\t' + str(leaf.data['symbol']).replace('\n', '\x80') + ' ' + str(leaf.data['length'])
+		print '\t' + str(leaf.data['symbol']).replace('\n', '\x80') + ':' + str(leaf.data['length'])
 
 def extractPrefixed(prefix, info):
 	symbols = []
@@ -52,10 +53,10 @@ def getNgramsFromFile():
 			ngram = line[:n]
 			prob = line[(n+1):]
 			info.append({'ngram': str(ngram).replace('\x80', '\n'), 'prob': int(prob)})
-	return n, info
+	info.sort(key = getNgram)
+	return n, collections.deque(info)
 
 n, info = getNgramsFromFile()
-info.sort(key = getNgram)
 
 print 'Huffman'
 print str(n)

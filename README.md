@@ -10,7 +10,8 @@ This contains the following files:
 - shuffle.c
 - ngramCount.py
 - huffman.py
-- mimicHuff.py
+- mimicNgram.py
+- demimicNgram.py
 - pyngram.py
 - tree.py
 - bitFile.py
@@ -44,10 +45,15 @@ Uses Python module pyngram (included).
 - huffman ngramfile > huffmanfile  
 Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs "Huffman" then the value of n, then the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file. Reads padding character U+80 as a newline, and outputs U+80 to mean a newline for ease of reading the output file.
 
-**mimicHuff.py**
-- python mimicHuff.py inputfile huffmanfile > outputfile  
-- mimicHuff inputfile huffmanfile > outputfile  
-Converts the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read to inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with a seed of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
+**mimicNgram.py**
+- python mimicNgram.py inputfile huffmanfile > outputfile  
+- mimicNgram inputfile huffmanfile > outputfile  
+Encodes the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read to inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with a seed of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
+
+**demimicNgram.py**  
+- python demimicNgram.py inputfile huffmanfile > outputfile  
+- demimicNgram inputfile huffmanfile > outputfile  
+Decodes the inputfile (which mimickes the frequencies expressed in the huffmanfile) into the outputfile that created it via mimicNgram.  Can read inputfile from standard input, outputs to standard output.  
 
 **pyngram.py**  
 Python module used in ngramCount.py. Created by [Jay Liew][pyngram].
@@ -56,14 +62,15 @@ Python module used in ngramCount.py. Created by [Jay Liew][pyngram].
 Python script defining the Node class to make tree creation and manipulation easier in huffman.py
 
 **bitFile.py**  
-Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimicHuff.py.
+Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimicNgram.py.
 
 **makefile**  
 - make all  
 - make <name of program> (ex.: make ngramCount)
 - make cleanup
 - make clean  
-Standard makefile to be used with *nix make utility.  Requires Python and Cython to make python scripts into executables.  No guaranty it will work on all systems. Will not make helper python modules into stand alone executables. Also includes two useful commands: cleanup and clean.  "make cleanup" will remove all the intermediate files created when making the executables (i.e. object files, the Cython C files, etc.).  "make clean" will remove all the intermediate files and all the executables (useful to force everything to be remade).
+Standard makefile to be used with \*nix make utility.  Requires Python and Cython to make python scripts into executables.  No guarantee it will work on all systems. Will not make helper python modules into stand alone executables. Also includes two useful commands: cleanup and clean.  "make cleanup" will remove all the intermediate files created when making the executables (i.e. object files, the Cython C files, etc.).  "make clean" will remove all the intermediate files and all the executables (useful to force everything to be remade).  
+If it does not work the important lines are the three near the top.  CC should be equal to your C compiler.  PYTHON should be your python interpreter with version.  CYTHON should be your cython converter.  If your command line returns an error saying they don't exist, you may need to put in the entire directory path.  
 
 ## Acknowledgements
 The code in ensteg.c and desteg.c is based off of code by [Joshua Shagam][ensteg].  
