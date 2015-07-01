@@ -38,21 +38,9 @@ def giveCodes(info): # assign codes to each symbol based on lengths (symbols in 
 		curCode = []
 		for symbol in thing['symbols']:
 			while len(curCode) < symbol['length']:
-				#print "lengthening"
-				#print curCode
 				curCode.append(0)
 			symbol['code'] = list(curCode)
-			#print "assigning"
-			#print curCode
 			curCode = addOne(curCode)
-			#print "adding one"
-			#print curCode
-
-def getSymbols(info, prefix):
-	for thing in info:
-		if thing['prefix'] == prefix:
-			return thing['symbols']
-	return []
 
 def flatten(info):
 	newInfo = {}
