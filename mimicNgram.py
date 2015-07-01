@@ -54,12 +54,19 @@ def getSymbols(info, prefix):
 			return thing['symbols']
 	return []
 
+def flatten(info):
+	newInfo = {}
+	for thing in info:
+		newInfo[thing['prefix']] = thing['symbols']
+	return newInfo
+
 def convert(infile, outfile, info, seed = ''): # read file bit by bit and convert using codes in info into output stream
 	input = bitFile.bitRead(infile)
 	outfile.write(seed)
 	prefix = list(seed)
+	info = flatten(info)
 	while len(input.peek(1)) != 0:
-		symbols = getSymbols(info, ''.join(prefix))
+		symbols = info[''.join(prefix)]
 		# using symbols and bits from input.read(), determine what the next symbol is
 		next = ''
 		for thing in symbols:
