@@ -48,7 +48,7 @@ def flatten(info):
 		newInfo[thing['prefix']] = thing['symbols']
 	return newInfo
 
-def convert(infile, outfile, info, seed = ''): # read file bit by bit and convert using codes in info into output stream
+def encode(infile, outfile, info, seed = ''): # read file bit by bit and encode using codes in info into output stream
 	input = bitFile.bitRead(infile)
 	outfile.write(seed)
 	prefix = list(seed)
@@ -67,7 +67,6 @@ def convert(infile, outfile, info, seed = ''): # read file bit by bit and conver
 		outfile.write(next)
 		prefix.append(next)
 		prefix = prefix[1:]
-		#print prefix
 
 if __name__ == "__main__": # Stdin should be the file that is being hidden, stdout is file mimicing freqs of huffman file
 	if len(sys.argv) > 2:
@@ -82,11 +81,6 @@ if __name__ == "__main__": # Stdin should be the file that is being hidden, stdo
 
 	n, info = readHuffman(infofile)
 	giveCodes(info)
-	convert(infile, sys.stdout, info, "The ")
-	'''
-	for thing in info:
-		if thing['prefix'] == "    ":
-			print thing
-	'''
+	encode(infile, sys.stdout, info, "The ")
 	infofile.close()
 	infile.close()

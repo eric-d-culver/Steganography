@@ -10,6 +10,8 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <limits.h>
 
 unsigned long hash(char *str);
@@ -66,7 +68,7 @@ int main(int argc, char *argv[])
 unsigned long hash (char *str) {
 	unsigned long hash= 5381;
 	int c;
-	while (c=*str++)
+	while ((c=*str++))
 		hash=((hash<<5)+hash)+c;
 
 	return hash;
