@@ -36,7 +36,7 @@ if __name__ == "__main__": # Stdin should be the file that is being hidden, stdo
 
         #outfile = open("play10.txt", 'w')
         outfile = sys.stdout
-        info = huffFileRead.huffRead(infofile)
+        n, info = huffFileRead.huffRead(infofile)
         #print info
 	encode(infile, outfile, info, "Shall I c")
 	infofile.close()

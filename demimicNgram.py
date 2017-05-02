@@ -39,7 +39,7 @@ if __name__ == "__main__": # Stdout should be the file that is being hidden, std
 		infile = sys.stdin
 
         outfile = sys.stdout
-        info = huffFileRead.huffRead(infofile)
+        n, info = huffFileRead.huffRead(infofile)
         #print info
 	decode(infile, outfile, info, n)
 	infofile.close()

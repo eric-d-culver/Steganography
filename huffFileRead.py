@@ -50,4 +50,4 @@ def huffRead(infofile): # read file, add codes, flatten
     n, info = readHuffman(infofile)
     giveCodes(info)
     info = flatten(info)
-    return info
+    return n, info
