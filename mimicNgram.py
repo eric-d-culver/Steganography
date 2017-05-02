@@ -49,22 +49,23 @@ def flatten(info):
 	return newInfo
 
 def encode(infile, outfile, info, seed = ''): # read file bit by bit and encode using codes in info into output stream
-	input = bitFile.bitRead(infile)
+	inBits = bitFile.bitRead(infile)
 	outfile.write(seed)
 	prefix = list(seed)
-	while len(input.peek(1)) != 0:
+	while len(inBits.peek(1)) != 0:
 		symbols = info[''.join(prefix)]
 		# using symbols and bits from input.read(), determine what the next symbol is
-		next = ''
+		nextChar = ''
 		for thing in symbols:
-			if input.peek(thing['length']) == thing['code']:
-				input.read(thing['length'])
-				next = thing['symbol']
+			if inBits.peek(thing['length']) == thing['code']:
+				print inBits.read(thing['length']), thing['code'], thing['symbol']
+				nextChar = thing['symbol']
+                                break
+                if nextChar == '':
+                    nextChar = ' ' # if the prefix does not occur in huffman file, add a space
 		# write next symbol to output and shift prefix
-		if next == '':
-			next = ' '
-		outfile.write(next)
-		prefix.append(next)
+		outfile.write(nextChar)
+		prefix.append(nextChar)
 		prefix = prefix[1:]
 
 if __name__ == "__main__": # Stdin should be the file that is being hidden, stdout is file mimicing freqs of huffman file
@@ -78,10 +79,11 @@ if __name__ == "__main__": # Stdin should be the file that is being hidden, stdo
 		infofile = open("huffman5.txt", 'r')
 		infile = sys.stdin
 
+        outfile = open("play10.txt", 'w')
 	n, info = readHuffman(infofile)
 	giveCodes(info)
         info = flatten(info)
         #print info
-	encode(infile, sys.stdout, info, "Shall I c")
+	encode(infile, outfile, info, "Shall I c")
 	infofile.close()
 	infile.close()

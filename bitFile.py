@@ -20,8 +20,8 @@ class bitRead:
 		while len(self.bits) < numBits and (not self.isEOF()):
 			nextByte = ord(self.file.read(1))
 			self.bits.extend(byteToBits(nextByte))
-		value = self.bits[:numBits]
-		self.bits = self.bits[numBits:]
+		value = self.bits[:numBits] # read off next numBits
+		self.bits = self.bits[numBits:] # shift bit array
 		return value
 
 	def peek(self, numBits):
@@ -46,5 +46,5 @@ class bitWrite:
 	def write(self, theseBits):
 		self.bits.extend(theseBits)
 		while len(self.bits) >= 8:
-			self.file.write(chr(bitsToByte(self.bits[:8])))
-			self.bits = self.bits[8:]
+			self.file.write(chr(bitsToByte(self.bits[:8]))) # write first 8 bits
+			self.bits = self.bits[8:] # shift bit array
