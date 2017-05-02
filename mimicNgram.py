@@ -58,7 +58,7 @@ def encode(infile, outfile, info, seed = ''): # read file bit by bit and encode 
 		nextChar = ''
 		for thing in symbols:
 			if inBits.peek(thing['length']) == thing['code']:
-				print inBits.read(thing['length']), thing['code'], thing['symbol']
+                                inBits.read(thing['length'])
 				nextChar = thing['symbol']
                                 break
                 if nextChar == '':
@@ -79,7 +79,8 @@ if __name__ == "__main__": # Stdin should be the file that is being hidden, stdo
 		infofile = open("huffman5.txt", 'r')
 		infile = sys.stdin
 
-        outfile = open("play10.txt", 'w')
+        #outfile = open("play10.txt", 'w')
+        outfile = sys.stdout
 	n, info = readHuffman(infofile)
 	giveCodes(info)
         info = flatten(info)
