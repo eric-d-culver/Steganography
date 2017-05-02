@@ -47,9 +47,9 @@ Uses Python module pyngram (included).
 Groups the ngrams by the first n-1 characters, then constructs Huffman codes for them.  Outputs "Huffman" then the value of n, then the prefix, followed by an indented list of the symbols and code lengths, for all the prefixes in the ngram file. Reads padding character U+80 as a newline, and outputs U+80 to mean a newline for ease of reading the output file.
 
 **mimicNgram.py**
-- python mimicNgram.py inputfile huffmanfile > outputfile  
-- mimicNgram inputfile huffmanfile > outputfile  
-Encodes the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with a seed of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
+- python mimicNgram.py inputfile huffmanfile seed > outputfile  
+- mimicNgram inputfile huffmanfile seed > outputfile  
+Encodes the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with seed, which should be of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
 
 **demimicNgram.py**  
 - python demimicNgram.py inputfile huffmanfile > outputfile  

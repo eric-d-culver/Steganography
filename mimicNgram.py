@@ -24,20 +24,27 @@ def encode(infile, outfile, info, seed = ''): # read file bit by bit and encode 
 		prefix = prefix[1:]
 
 if __name__ == "__main__": # Stdin should be the file that is being hidden, stdout is file mimicing freqs of huffman file
-	if len(sys.argv) > 2:
+        if len(sys.argv) > 3:
+                prefix = sys.argv[3]
+                infofile = open(sys.argv[2], 'r')
+                infile = open(sys.argv[1], 'r')
+	elif len(sys.argv) > 2:
+                prefix = "Shall I c"
 		infofile = open(sys.argv[2], 'r')
 		infile = open(sys.argv[1], 'r')
 	elif len(sys.argv) > 1:
-		infofile = open("huffman5.txt", 'r')
+                prefix = "Shall I c"
+		infofile = open("huffman10.txt", 'r')
 		infile = open(sys.argv[1], 'r')
 	else:
-		infofile = open("huffman5.txt", 'r')
+                prefix = "Shall I c"
+		infofile = open("huffman10.txt", 'r')
 		infile = sys.stdin
 
         #outfile = open("play10.txt", 'w')
         outfile = sys.stdout
         n, info = huffFileRead.huffRead(infofile)
         #print info
-	encode(infile, outfile, info, "Shall I c")
+	encode(infile, outfile, info, prefix)
 	infofile.close()
 	infile.close()
