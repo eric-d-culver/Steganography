@@ -15,6 +15,7 @@ This contains the following files:
 - pyngram.py
 - tree.py
 - bitFile.py
+- huffFileRead.py
 - makefile
 
 ## Usage
@@ -37,7 +38,7 @@ Takes the bytes of the input files and shuffles them into one file (named input.
 **ngramCount.py**
 - python ngramCount.py -i filename n > ngramfile  
 - ngramCount -i filename n > ngramfile  
-Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file a space and their frequency, ordered with highest frequency first.  Replaces newlines with the padding character U+80 to ease reading of output file.  The output of this can be used as the input for huffman.py.  
+Counts the ngrams in input file and outputs "Ngrams" followed by the value of n, followed by all the ngrams in the input file, a space, and their frequency, ordered with highest frequency first.  Replaces newlines with the padding character U+80 to ease reading of output file.  The output of this can be used as the input for huffman.py.  
 Uses Python module pyngram (included).  
 
 **huffman.py**
@@ -48,7 +49,7 @@ Groups the ngrams by the first n-1 characters, then constructs Huffman codes for
 **mimicNgram.py**
 - python mimicNgram.py inputfile huffmanfile > outputfile  
 - mimicNgram inputfile huffmanfile > outputfile  
-Encodes the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read to inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with a seed of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
+Encodes the inputfile into a file mimicking the relative frequencies expressed in the huffmanfile.  Can read inputfile from standard input, outputs to standard output. Simplisically, the inputfile is treated as a Huffman-encoded bitstream and it is decoded using the information in the huffmanfile into the outputfile.  Expanding on that, the huffmanfile contains information about the ngrams of the file being mimicked.  The program starts with a seed of length n-1, and using that as the prefix, determines the next symbol based on the relative frequency of the ngrams starting with that prefix.  The inputfile is used as the 'random' bitstream to determine which symbol to pick.
 
 **demimicNgram.py**  
 - python demimicNgram.py inputfile huffmanfile > outputfile  
@@ -62,7 +63,10 @@ Python module used in ngramCount.py. Created by [Jay Liew][pyngram].
 Python script defining the Node class to make tree creation and manipulation easier in huffman.py
 
 **bitFile.py**  
-Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimicNgram.py.
+Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimicNgram.py and demimicNgram.py.
+
+**huffFileRead.py**
+Python script defining function for reading Huffman files into memory. Used in mimicNgram.py and demimicNgram.py.
 
 **makefile**  
 - make all  
