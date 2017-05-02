@@ -42,6 +42,12 @@ def giveCodes(info): # assign codes to each symbol based on lengths (symbols in 
 			symbol['code'] = list(curCode)
 			curCode = addOne(curCode)
 
+def flatten(info):
+	newInfo = {}
+	for thing in info:
+		newInfo[thing['prefix']] = thing['symbols']
+	return newInfo
+
 def getSymbols(info, prefix):
 	for thing in info:
 		if thing['prefix'] == prefix:
@@ -59,15 +65,12 @@ def decode(infile, outfile, info, n): # write a file bit by bit using codes in i
 	prefix = list(infile.read(n-1)) # prefix is first n-1 characters (the seed)
 	char = infile.read(1)
 	while char:
-		symbols = getSymbols(info, ''.join(prefix))
-		code = getCode(symbols, char)
-		#print str(code)
-		output.write(code)
-		# shift prefix
-		#print prefix
-		prefix.append(char)
+		symbols = info[''.join(prefix)]
+		code = getCode(symbols, char) # find code corresponding to prefix and next char
+		output.write(code) # write those bits to outfile
+		prefix.append(char) # shift prefix
 		prefix = prefix[1:]
-		char = infile.read(1)
+		char = infile.read(1) # read next char
 
 if __name__ == "__main__": # Stdout should be the file that is being hidden, stdin is file mimicing freqs of huffman file
 	if len(sys.argv) > 2:
@@ -80,16 +83,10 @@ if __name__ == "__main__": # Stdout should be the file that is being hidden, std
 		infofile = open("huffman5.txt", 'r')
 		infile = sys.stdin
 
-	#print "reading Huffman"
 	n, info = readHuffman(infofile)
-	#print "giving codes"
 	giveCodes(info)
-	#print "decoding"
-	'''
-	for thing in info:
-		if thing['prefix'] == 'The ':
-			print thing['symbols']
-	'''
+        info = flatten(info)
+        #print info
 	decode(infile, sys.stdout, info, n)
 	infofile.close()
 	infile.close()

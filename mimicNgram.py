@@ -52,7 +52,6 @@ def encode(infile, outfile, info, seed = ''): # read file bit by bit and encode 
 	input = bitFile.bitRead(infile)
 	outfile.write(seed)
 	prefix = list(seed)
-	info = flatten(info)
 	while len(input.peek(1)) != 0:
 		symbols = info[''.join(prefix)]
 		# using symbols and bits from input.read(), determine what the next symbol is
@@ -81,6 +80,8 @@ if __name__ == "__main__": # Stdin should be the file that is being hidden, stdo
 
 	n, info = readHuffman(infofile)
 	giveCodes(info)
+        info = flatten(info)
+        #print info
 	encode(infile, sys.stdout, info, "Shall I c")
 	infofile.close()
 	infile.close()
