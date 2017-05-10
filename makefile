@@ -57,8 +57,11 @@ mimicNgram: mimicNgram.o bitFile.o
 demimicNgram: demimicNgram.o bitFile.o
 	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
 
-.PHONY: cleanup cleanupMiddles cleanupEnds clean all
+.PHONY: test cleanup cleanupMiddles cleanupEnds clean all
 
+
+test:
+	./testrun.sh
 
 cleanup:
 	rm -f *.o *.pyc $(CYMAIN) $(CYHELP)
