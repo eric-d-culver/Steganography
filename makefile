@@ -57,11 +57,41 @@ mimicNgram: mimicNgram.o bitFile.o
 demimicNgram: demimicNgram.o bitFile.o
 	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
 
-.PHONY: test cleanup cleanupMiddles cleanupEnds clean all
+output.txt: ensteg desteg deal shuffle input.txt input.ppm
+	./deal input.txt 3
+	./ensteg input.ppm input0.txt output0.ppm
+	./ensteg input.ppm input1.txt output1.ppm
+	./ensteg input.ppm input2.txt output2.ppm
+	./desteg output0.ppm output0.txt
+	./desteg output1.ppm output1.txt
+	./desteg output2.ppm output2.txt
+	./shuffle output0.txt output1.txt output2.txt
 
+ngrams10.txt: ngramCount shakespeare.txt
+	echo "counting ngrams..."
+	./ngramCount -i shakespeare.txt 10 > ngrams10.txt
+	echo "done."
 
-test:
-	./testrun.sh
+huffman10.txt: huffman ngrams10.txt
+	echo "huffmaning..."
+	./huffman ngrams10.txt > huffman10.txt
+	echo "done." 
+
+play10.txt: mimiNgram huffman10.txt input.txt
+	echo "mimicking ngrams..."
+	./mimicNgram input.txt huffman10.txt "Then die " > play10.txt
+	echo "done."
+
+deplay10.txt: demimicNgram huffman10.txt play10.txt
+	echo "demimicking..."
+	./demimicNgram play10.txt huffman10.txt > deplay.txt
+	echo "done."
+
+.PHONY: testrun test3 cleanup cleanupMiddles cleanupEnds clean all
+	
+
+testrun: output.txt deplay.txt
+	
 
 cleanup:
 	rm -f *.o *.pyc $(CYMAIN) $(CYHELP)
