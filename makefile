@@ -57,11 +57,17 @@ mimicNgram: mimicNgram.o bitFile.o
 demimicNgram: demimicNgram.o bitFile.o
 	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
 
-.PHONY: cleanup clean all
+.PHONY: cleanup cleanupMiddles cleanupEnds clean all
 
 
 cleanup:
 	rm -f *.o *.pyc $(CYMAIN) $(CYHELP)
+
+cleanupMiddles:
+	rm -f input?.txt output?.txt ngrams10.txt huffman10.txt
+
+cleanupEnds:
+	rm -f output?.ppm output.txt play10.txt deplay10.txt
 
 clean:
 	rm -f *.o *.pyc $(CYMAIN) $(CYHELP) $(EXECS)
