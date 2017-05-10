@@ -13,18 +13,18 @@ typedef struct {
 				int num_allocated;
 } dynaArray;
 
-typedef struct {
+typedef struct _bitRead {
 				FILE* file;
 				dynaArray* bits;
-				unsigned char* (*read)(const void* self, int numBits);
-				unsigned char* (*peek)(const void* self, int numBits);
-				int (*isEOF)(const void* self);
+				unsigned char* (*read)(struct _bitRead* self, int numBits);
+				unsigned char* (*peek)(struct _bitRead* self, int numBits);
+				int (*isEOF)(const struct _bitRead* self);
 } bitRead;
 
-typedef struct {
+typedef struct _bitWrite {
 				FILE* file;
 				dynaArray* bits;
-				void (*write)(const void* self, unsigned char* bits);
+				void (*write)(struct _bitWrite* self, unsigned char* bits, int numBits);
 } bitWrite;
 
 bitRead* initBitRead(FILE* file);
