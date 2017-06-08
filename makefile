@@ -77,7 +77,7 @@ huffman10.txt: huffman ngrams10.txt
 	./huffman ngrams10.txt > huffman10.txt
 	echo "done." 
 
-play10.txt: mimiNgram huffman10.txt input.txt
+play10.txt: mimicNgram huffman10.txt input.txt
 	echo "mimicking ngrams..."
 	./mimicNgram input.txt huffman10.txt "Then die " > play10.txt
 	echo "done."
