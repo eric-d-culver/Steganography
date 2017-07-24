@@ -15,6 +15,7 @@ This contains the following files:
 - pyngram.py
 - tree.py
 - bitFile.py
+- bitFile.c
 - huffFileRead.py
 - makefile
 
@@ -75,6 +76,10 @@ Python script defining the Node class to make tree creation and manipulation eas
 **bitFile.py**  
 
 Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimicNgram.py and demimicNgram.py.
+
+**bitFile.c**
+
+Defines the bitRead class to allow files to be easily read one bit at a time. Used in mimicNgram.py and demimicNgram.py. Replaces bitRead.py.
 
 **huffFileRead.py**
 
