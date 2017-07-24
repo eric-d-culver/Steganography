@@ -7,4 +7,8 @@ typedef struct _node {
 				void* data;
 } node;
 
+node* freeTree(node* root);
+
+node** getLeaves(node* root);
+
 #endif
