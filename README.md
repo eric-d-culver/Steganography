@@ -65,15 +65,19 @@ Encodes the inputfile into a file mimicking the relative frequencies expressed i
 Decodes the inputfile (which mimickes the frequencies expressed in the huffmanfile) into the outputfile that created it via mimicNgram.  Can read inputfile from standard input, outputs to standard output.  
 
 **pyngram.py**  
+
 Python module used in ngramCount.py. Created by [Jay Liew][pyngram].
 
 **tree.py**  
+
 Python script defining the Node class to make tree creation and manipulation easier in huffman.py
 
 **bitFile.py**  
+
 Python script defining the bitRead class to allow files to be easily read one bit at a time.  Used in mimicNgram.py and demimicNgram.py.
 
 **huffFileRead.py**
+
 Python script defining function for reading Huffman files into memory. Used in mimicNgram.py and demimicNgram.py.
 
 **makefile**  
