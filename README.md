@@ -87,6 +87,7 @@ Python script defining function for reading Huffman files into memory. Used in m
 - make clean  
 
 Standard makefile to be used with \*nix make utility.  Requires Python and Cython to make python scripts into executables.  No guarantee it will work on all systems. Will not make helper python modules into stand alone executables. Also includes two useful commands: cleanup and clean.  "make cleanup" will remove all the intermediate files created when making the executables (i.e. object files, the Cython C files, etc.).  "make clean" will remove all the intermediate files and all the executables (useful to force everything to be remade).  
+
 If it does not work the important lines are the three near the top.  CC should be equal to your C compiler.  PYTHON should be your python interpreter with version.  CYTHON should be your cython converter.  If your command line returns an error saying they don't exist, you may need to put in the entire directory path.  
 
 ## Acknowledgements
