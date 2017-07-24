@@ -21,6 +21,7 @@ This contains the following files:
 ## Usage
 **ensteg.c**
 - ensteg input.pnm file.data output.pnm  
+
 Takes an input picture in a pnm binary format (P4, P5, P6) with no comments and hides the bytes of file.data in the least significant bit of the pixels of the picture and outputs the result in the same format.
 
 **desteg.c**
