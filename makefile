@@ -9,7 +9,7 @@ WARNINGS = -Wall
 CFLAGS= -std=c11 # $(WARNINGS)
 
 # executable python files
-PYMAIN = ngramCount.py huffman.py mimicNgram.py demimicNgram.py
+PYMAIN = ngramCount.py huffFileCreate.py mimicNgram.py demimicNgram.py
 
 # helping python modules
 PYHELP = pyngram.py tree.py #bitFile.py
@@ -18,7 +18,7 @@ PYHELP = pyngram.py tree.py #bitFile.py
 NODEPS = ensteg desteg deal shuffle
 
 # names of produced executables
-EXECS = ensteg desteg deal shuffle ngramCount huffman mimicNgram demimicNgram
+EXECS = ensteg desteg deal shuffle ngramCount huffFileCreate mimicNgram demimicNgram
 
 # additional helping variables
 CYMAIN = $(PYMAIN:.py=.c)
@@ -48,7 +48,7 @@ $(NODEPS): %: %.o
 ngramCount: ngramCount.o pyngram.o
 	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
 
-huffman: huffman.o tree.o
+huffFileCreate: huffFileCreate.o tree.o
 	$(CC) $(CFLAGS) $(PYLINK) -o $@ $^
 
 mimicNgram: mimicNgram.o bitFile.o
@@ -72,9 +72,9 @@ ngrams10.txt: ngramCount shakespeare.txt
 	./ngramCount -i shakespeare.txt 10 > ngrams10.txt
 	echo "done."
 
-huffman10.txt: huffman ngrams10.txt
+huffman10.txt: huffFileCreate ngrams10.txt
 	echo "huffmaning..."
-	./huffman ngrams10.txt > huffman10.txt
+	./huffFileCreate ngrams10.txt > huffman10.txt
 	echo "done." 
 
 play10.txt: mimicNgram huffman10.txt input.txt
