@@ -1,6 +1,6 @@
 #include "tree.h"
 
-node* freeTree(node* root) {
+treeNode* freeTree(treeNode* root) {
 				if (root == NULL) {
 								return NULL;
 				}
@@ -9,7 +9,7 @@ node* freeTree(node* root) {
 				return NULL;
 }
 
-node** getLeaves(node* root) {
+treeNode** getLeaves(treeNode* root) {
 				if (root == NULL) {
 								return NULL;
 				}
