@@ -1,5 +1,13 @@
 #include "tree.h"
 
+treeNode* newTreeNode(treeNode* left, treeNode* right, void* data) {
+				newNode = (treeNode*) malloc(sizeof(treeNode));
+				newNode->left = left;
+				newNode->right = right;
+				newNode->data = data;
+				return newNode;
+}
+
 treeNode* freeTree(treeNode* root) {
 				if (root == NULL) {
 								return NULL;

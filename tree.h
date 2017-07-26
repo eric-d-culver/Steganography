@@ -7,6 +7,8 @@ typedef struct _treeNode {
 				void* data;
 } treeNode;
 
+treeNode* newTreeNode(treeNode* left, treeNode* right, void* data);
+
 treeNode* freeTree(treeNode* root);
 
 treeNode** getLeaves(treeNode* root);
