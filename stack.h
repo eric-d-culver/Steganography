@@ -1,15 +1,13 @@
 #ifndef STACK_H
 #define STACK_H
+#include "list.h"
 
-typedef struct _node {
-				struct _node* next;
-				char* data;
-} node;
+typedef listNode stack;
 
-node* push(node* top, char* data);
+stack* push(stack* top, char* data);
 
-node* pop(node* top, char* res);
+stack* pop(stack* top, char* res);
 
-node* copyStack(node* top);
+stack* copyStack(stack* top);
 
 #endif

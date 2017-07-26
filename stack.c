@@ -2,24 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-node* push(node* top, char* data) {
-				node* newNode;
-				newNode = (node*) malloc(sizeof(node));
-				newNode->next = top;
-				newNode->data = data;
+stack* push(stack* top, char* data) {
+				size_t size = sizeof(char)*strlen(data);
+				stack* newNode = newListNode(top, size, (void*) data);
 				return newNode;
 }
 
-node* pop(node* top, char* res) {
-				res = top->data;
-				node* newTop = top->next;
+stack* pop(stack* top, char* res) {
+				res = (char*) top->data;
+				stack* newTop = top->next;
 				free(top);
 				return newTop;
 }
 
-node* copyStack(node* top) {
-				node* newTop = (node*) malloc(sizeof(node));
-				strcpy(newTop->data, top->data);
-				newTop->next = copyStack(top->next);
+stack* copyStack(stack* top) {
+				stack* newTop = copyList(top);
 				return newTop;
 }
