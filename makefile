@@ -12,7 +12,7 @@ CFLAGS= -std=c11 # $(WARNINGS)
 PYMAIN = ngramCount.py huffFileCreate.py mimicNgram.py demimicNgram.py
 
 # helping python modules
-PYHELP = pyngram.py tree.py #bitFile.py
+PYHELP = pyngram.py #tree.py #bitFile.py
 
 # stand alone executables
 NODEPS = ensteg desteg deal shuffle
