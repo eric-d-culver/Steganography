@@ -84,13 +84,13 @@ play10.txt: mimicNgram huffman10.txt input.txt
 
 deplay10.txt: demimicNgram huffman10.txt play10.txt
 	echo "demimicking..."
-	./demimicNgram play10.txt huffman10.txt > deplay.txt
+	./demimicNgram play10.txt huffman10.txt > deplay10.txt
 	echo "done."
 
 .PHONY: testrun test3 cleanup cleanupMiddles cleanupEnds clean all
 	
 
-testrun: output.txt deplay.txt
+testrun: output.txt deplay10.txt
 	
 
 cleanup:
